@@ -1,0 +1,32 @@
+package com.example.seg2105deliverable1mypartfr;
+
+public class RegisterUser {
+    progressBar.setVisibility(View.VISIBLE);
+    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>) {
+        @Override
+        public void onComplete(@NonNull Task<AuthResult> task) {
+
+            if(task.isSuccessful()){
+                User user = new User(firstName, lastName, emailAddress, password, address);
+
+                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Overridepublic void OnComplete(@NonNull Task<Void> task) {
+
+                        if (task.isSuccessful()){
+                            Toast.makeText(RegisterUser.this, "User has been registered successfully!", toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.VISIBLE);
+
+                            //redirect to login layout
+                        } else {
+                            Toast.makeText(RegisterUser.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
+                            progressBar.setVisbility(View.GONE);
+                        }
+                    }
+                }
+            } else {
+                Toast.makeText(RegisterUser.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
+                progressBar.setVisbility(View.GONE);
+            }
+        }
+    }
+}

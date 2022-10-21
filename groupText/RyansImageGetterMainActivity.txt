@@ -1,0 +1,87 @@
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+
+public class MainActivity extends AppCompatActivity {
+/*
+ALL THIS CODE IS TO GET THE IMAGE FROM THE USER FOR VOID CHEQUE.
+
+The Button and ImagePreview are optional, I just had to use them
+to get this code to run.
+
+At the bottom, you'll see selectedImageUri which is the image selected by
+the user.
+ */
+    // One Button
+    Button BSelectImage;
+
+    // One Preview Image
+    ImageView IVImagePreview;
+
+    // constant to compare
+    // the activity result code
+    int SELECT_PICTURE = 200;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // register the UI widgets with their appropriate IDs
+        BSelectImage = findViewById(R.id.BSelectImage);
+        IVImagePreview = findViewById(R.id.IVImagePreview);
+
+        // handle the Choose Image button to trigger
+        // the image chooser function
+
+        //Let the Select Image button trigger the image selector function
+
+        BSelectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageSelector();
+            }
+        });
+    }
+
+    /*
+    Function to select an image. Used when the "Select Image" button is clicked.
+     */
+    void imageSelector() {
+
+        //Creating an instance of the intent of type image
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+
+
+        //Compare the constant with the returned requestCode
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+    }
+
+
+    /*
+    Function to display the image selected by the user.
+    Used when the user selects an image from imageSelector.
+     */
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            //Comparing the resultCode with the SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Retrieve url from image of the data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    //Shows the picture on the display
+                    IVImagePreview.setImageURI(selectedImageUri);
+                }
+            }
+        }
+    }
+}

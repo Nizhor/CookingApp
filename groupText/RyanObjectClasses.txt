@@ -1,0 +1,54 @@
+public class Client {
+    public String firstName, lastName, emailAddress, password, address;
+    public CreditCard creditCard;
+
+    public Client(){
+
+    }
+
+    public Client(String firstName, String lastName, String emailAddress, String password, String address, CreditCard creditCard){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.password = password;
+        this.address = address;
+        this.creditCard = creditCard;
+    }
+}
+
+import android.net.Uri;
+
+public class Cook {
+
+    public String firstName, lastName, emailAddress, password, address, cookDescription;
+    public Uri voidCheque;
+
+
+    public Cook(){
+
+    }
+
+    public Cook(String firstName, String lastName, String emailAddress, String password, String address, String cookDescription, Uri voidCheque){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.password = password;
+        this.address = address;
+        this.voidCheque = voidCheque;
+    }
+}
+
+public class CreditCard {
+
+    private String cardNumber, securityNumber, expirationDate;
+    
+    public CreditCard(){
+        
+    }
+
+    public CreditCard(String cardNumber, String securityNumber, String expirationDate) {
+        this.cardNumber = cardNumber;
+        this.securityNumber = securityNumber;
+        this.expirationDate = expirationDate;
+    }
+}
