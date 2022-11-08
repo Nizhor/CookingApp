@@ -26,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String userID;
 
     private Button logout;
+    private Button viewComplaints;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,8 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ProfileActivity.this, MainActivity.class));
             }
         });
+
+
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
@@ -69,6 +72,15 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                     if(administrator == true){
                         greetingTextView.setText("Welcome Administrator");
+
+                        viewComplaints = (Button) findViewById(R.id.viewComplaints);
+
+                        viewComplaints.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(new Intent(ProfileActivity.this, ComplaintsList.class));
+                            }
+                        });
 
                     }
 

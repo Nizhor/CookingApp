@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 if(task.isSuccessful()){
                     //redirect to user profile
                     startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                    progressBar.setVisibility(View.GONE);
                 }else{
                     Toast.makeText(MainActivity.this, "Failed to login! Please check you credentials", Toast.LENGTH_LONG).show();
                 }

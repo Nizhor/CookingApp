@@ -25,7 +25,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
     private TextView banner, registerUser;
     private EditText editTextFirstName, editTextLastName, editTextEmail, editTextPassword, editTextAddress, editCardName, editDescription, editCardNumber, editCardExpiration;
-    private CheckBox editClient, editChef, editAdministrator;
+    private CheckBox editClient, editChef;
 
 
     private ProgressBar progressBar;
