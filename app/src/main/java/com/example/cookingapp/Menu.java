@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Menu {
     public static ArrayList<Meal> mealList;
-    public ArrayList<Meal> offeredMeals;
+    public static ArrayList<Meal> offeredMeals;
 
     public Menu() {
 
