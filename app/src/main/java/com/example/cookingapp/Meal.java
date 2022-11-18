@@ -2,8 +2,7 @@ package com.example.cookingapp;
 import java.util.*;
 
 public class Meal {
-    public String mealName, mealType, cusineType, description;
-    public ArrayList<String> ingredients, allergens;
+    public String mealName, mealType, cusineType, description, ingredients, allergens;
     public Double price;
     public boolean isOffered;
 
@@ -11,8 +10,8 @@ public class Meal {
 
     }
 
-    public Meal(String mealName, String mealType, String cusineType, ArrayList<String> ingredients,
-                ArrayList<String> allergens, Double price, String description, Boolean isOffered) {
+    public Meal(String mealName, String mealType, String cusineType, String ingredients,
+                String allergens, Double price, String description, Boolean isOffered) {
         this.mealName = mealName;
         this.mealType = mealType;
         this.cusineType = cusineType;
@@ -56,19 +55,19 @@ public class Meal {
         this.description = description;
     }
 
-    public ArrayList<String> getIngredients() {
+    public String getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(ArrayList<String> ingredients) {
+    public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
 
-    public ArrayList<String> getAllergens() {
+    public String getAllergens() {
         return allergens;
     }
 
-    public void setAllergens(ArrayList<String> allergens) {
+    public void setAllergens(String allergens) {
         this.allergens = allergens;
     }
 

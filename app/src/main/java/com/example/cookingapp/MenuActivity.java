@@ -21,6 +21,5 @@ public class MenuActivity extends AppCompatActivity {
         ArrayList<Meal> allMeals = (ArrayList) Menu.mealList.clone();
 
         MealAdapter mealAdapter = new MealAdapter(this, R.layout.menu_list_row, allMeals);
-
     }
 }
