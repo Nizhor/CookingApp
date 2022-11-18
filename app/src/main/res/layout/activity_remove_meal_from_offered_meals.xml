@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RemoveMealFromOfferedMealsActivity">
+
+    <TextView
+        android:id="@+id/prompt"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="45dp"
+        android:paddingBottom="45dp"
+        android:text="Which meal would you like to remove?"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/prompt"
+        android:paddingTop="45dp"
+        android:paddingBottom="45dp"
+        android:hint="Meal Name (Glizzy)"
+        android:id="@+id/editMeal"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editMeal"
+        android:id="@+id/btnSubmit"
+        android:text="Submit"
+        />
+
+
+
+</RelativeLayout>

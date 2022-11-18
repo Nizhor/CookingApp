@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChefProfileActivity">
+
+    <TextView
+        android:id="@+id/txtWelcomeChef"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="45dp"
+        android:paddingTop="45dp"
+        android:text="Welcome Chef!"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        />
+
+    <Button
+        android:id="@+id/btnMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Menu"
+        android:layout_below="@id/txtWelcomeChef"
+    />
+
+    <Button
+        android:id="@+id/btnMealsOffered"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Meals Offered"
+        android:layout_below="@id/btnMenu"
+        />
+
+    <Button
+        android:id="@+id/btnAddMealToMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add A Meal To The Menu"
+        android:layout_below="@id/btnMealsOffered"
+        />
+
+    <Button
+        android:id="@+id/btnRemoveMealFromMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remove A Meal From The Menu"
+        android:layout_below="@id/btnAddMealToMenu"
+        />
+
+    <Button
+        android:id="@+id/btnAddMealToOfferedMeals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add A Meal To The Offered Meals List"
+        android:layout_below="@id/btnRemoveMealFromMenu"
+        />
+
+    <Button
+        android:id="@+id/btnRemoveMealFromOfferedMeals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remove A Meal From The Offered Meals List"
+        android:layout_below="@id/btnAddMealToOfferedMeals"
+        />
+
+
+</RelativeLayout>

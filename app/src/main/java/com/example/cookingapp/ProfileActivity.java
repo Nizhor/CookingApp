@@ -67,7 +67,8 @@ public class ProfileActivity extends AppCompatActivity {
                     }
 
                     if(chef == true){
-                        greetingTextView.setText("Welcome Chef");
+                        //greetingTextView.setText("Welcome Chef");
+                        openChefProfileActivity();
 
                     }
                     if(administrator == true){
@@ -93,5 +94,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void openChefProfileActivity() {
+        Intent intent = new Intent(this, ChefProfileActivity.class);
+        startActivity(intent);
     }
 }
