@@ -1,5 +1,6 @@
 package com.example.cookingapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,12 +9,29 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AddMealToMenuActivity extends AppCompatActivity {
     private EditText editTextMealName, editTextMealType, editTextCuisineType, editTextIngredients,
             editTextAllergens, editTextDescription, editTextPrice;
     private CheckBox chkYes, chkNo;
     private ProgressBar progressBar;
+
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase mFirebaseDatabase;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference myRef;
+    String userID;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +49,12 @@ public class AddMealToMenuActivity extends AppCompatActivity {
         chkYes = (CheckBox) findViewById(R.id.checkBoxYes);
         chkYes = (CheckBox) findViewById(R.id.checkBoxNo);
 
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference();
+        FirebaseUser user = mAuth.getCurrentUser();
+        userID = user.getUid();
+
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
@@ -38,7 +62,7 @@ public class AddMealToMenuActivity extends AppCompatActivity {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnAddMeal:
-                startActivity(new Intent(this, MainActivity.class));
+                addMeal();
                 break;
         }
     }
@@ -51,7 +75,7 @@ public class AddMealToMenuActivity extends AppCompatActivity {
         String allergens = editTextAllergens.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
         Boolean isOffered = false;
-        Double price;
+        Double price = -1.0;
 
 
 
@@ -85,14 +109,16 @@ public class AddMealToMenuActivity extends AppCompatActivity {
             return;
         }
 
-        try {
-            price = Double.parseDouble(editTextMealName.getText().toString().trim());
-        } catch (NumberFormatException nfe) {
-            editTextPrice.setError("Price must be a valid number.");
-            editTextPrice.requestFocus();
-        } catch (NullPointerException npe) {
-            editTextPrice.setError("Price is required!");
-            editTextPrice.requestFocus();
+        while (price == -1.0){
+            try {
+                price = Double.parseDouble(editTextMealName.getText().toString().trim());
+            } catch (NumberFormatException nfe) {
+                editTextPrice.setError("Price must be a valid number.");
+                editTextPrice.requestFocus();
+            } catch (NullPointerException npe) {
+                editTextPrice.setError("Price is required!");
+                editTextPrice.requestFocus();
+            }
         }
 
         if(description.isEmpty()){
@@ -113,7 +139,11 @@ public class AddMealToMenuActivity extends AppCompatActivity {
         If (Chef has not created a menu yet) { Create Menu and Add Meal to Menu } else { Add Meal to Menu }
          */
 
+        Meal mealAdded = new Meal(mealName, mealType, cuisineType, ingredients, allergens,
+                price, description, isOffered);
+        Menu.addMealToMenu(mealAdded);
 
+        myRef.child("Users").child(userID).child("Menu").setValue(Chef.menu);
     }
 
 

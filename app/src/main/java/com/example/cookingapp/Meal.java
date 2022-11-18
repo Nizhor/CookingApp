@@ -2,7 +2,7 @@ package com.example.cookingapp;
 import java.util.*;
 
 public class Meal {
-    public String mealName, mealType, cusineType, description, ingredients, allergens;
+    public String mealName, mealType, cuisineType, description, ingredients, allergens;
     public Double price;
     public boolean isOffered;
 
@@ -10,17 +10,31 @@ public class Meal {
 
     }
 
-    public Meal(String mealName, String mealType, String cusineType, String ingredients,
+    public Meal(String mealName, String mealType, String cuisineType, String ingredients,
                 String allergens, Double price, String description, Boolean isOffered) {
         this.mealName = mealName;
         this.mealType = mealType;
-        this.cusineType = cusineType;
+        this.cuisineType = cuisineType;
         this.ingredients = ingredients;
         this.allergens = allergens;
         this.price = price;
         this.description = description;
         this.isOffered = isOffered;
 
+    }
+
+    public String getMealDescription() {
+        String isOfferedString = "Not Offered";
+        if (isOffered) {
+            isOfferedString = "Currently Offered";
+        }
+
+        return mealName + " " + mealType + " " + cuisineType + " " + ingredients +
+                " " + allergens + " " + price + " " + description + " " + isOfferedString;
+    }
+
+    public void offerMealStatus(Boolean offer) {
+        isOffered = offer;
     }
 
     public String getMealName() {
@@ -40,11 +54,11 @@ public class Meal {
     }
 
     public String getCusineType() {
-        return cusineType;
+        return cuisineType;
     }
 
     public void setCusineType(String cusineType) {
-        this.cusineType = cusineType;
+        this.cuisineType = cusineType;
     }
 
     public String getDescription() {

@@ -8,13 +8,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class AddMealToOfferedMealsActivity extends AppCompatActivity {
-    String unwantedMeal;
+    String wantedMeal;
 
     EditText mealInput;
     Button submit;
+
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase mFirebaseDatabase;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference myRef;
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +36,16 @@ public class AddMealToOfferedMealsActivity extends AppCompatActivity {
 
         submit = (Button) findViewById(R.id.btnSubmit);
 
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference();
+        FirebaseUser user = mAuth.getCurrentUser();
+        userID = user.getUid();
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                unwantedMeal = mealInput.getText().toString().trim();
+                wantedMeal = mealInput.getText().toString().trim();
 
 
                 Menu menu = Chef.menu;
@@ -36,13 +53,17 @@ public class AddMealToOfferedMealsActivity extends AppCompatActivity {
 
                 for (int i = 0; i < (allMeals.size() - 1);i++) {
                     Meal meal = allMeals.get(i);
-                    if (meal.mealName.toLowerCase() == unwantedMeal.toLowerCase()) {
+                    if (meal.mealName.toLowerCase() == wantedMeal.toLowerCase()) {
                         if (meal.isOffered == false) {
                             meal.isOffered = true;
-                            showToast(unwantedMeal + " has been added to the offered items list.");
+                            showToast(wantedMeal + " has been added to the offered items list.");
+                        } else {
+                            showToast(wantedMeal + " is already not being offered.");
                         }
                     }
                 }
+
+                myRef.child("Users").child(userID).child("Menu").setValue(Chef.menu);
             }
         });;
     }
