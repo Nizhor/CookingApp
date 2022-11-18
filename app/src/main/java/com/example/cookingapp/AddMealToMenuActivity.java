@@ -105,6 +105,14 @@ public class AddMealToMenuActivity extends AppCompatActivity {
             isOffered = true;
         }
 
+        /*
+        Add meal to menu of the chef using firebase. I don't know how to do this.
+
+        I think best way is to create new meal, and add that meal to the mealList in Menu.
+
+        If (Chef has not created a menu yet) { Create Menu and Add Meal to Menu } else { Add Meal to Menu }
+         */
+
 
     }
 
