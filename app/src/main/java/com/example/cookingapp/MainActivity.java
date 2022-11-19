@@ -101,6 +101,10 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                     //redirect to user profile
                     startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                     progressBar.setVisibility(View.GONE);
+                    if(email == "admin@gmail.com"){
+                        startActivity(new Intent(MainActivity.this, ComplaintsList.class));
+                        progressBar.setVisibility(View.GONE);
+                    }
                 }else{
                     Toast.makeText(MainActivity.this, "Failed to login! Please check you credentials", Toast.LENGTH_LONG).show();
                 }

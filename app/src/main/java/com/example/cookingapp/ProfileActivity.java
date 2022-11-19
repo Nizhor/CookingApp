@@ -27,6 +27,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private Button logout;
     private Button viewComplaints;
+    private Button dismissComplaint;
+    private Button suspendCook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +69,12 @@ public class ProfileActivity extends AppCompatActivity {
                     }
 
                     if(chef == true){
-                        //greetingTextView.setText("Welcome Chef");
+                        greetingTextView.setText("Welcome Chef");
                         openChefProfileActivity();
 
                     }
                     if(administrator == true){
                         greetingTextView.setText("Welcome Administrator");
-
                         viewComplaints = (Button) findViewById(R.id.viewComplaints);
 
                         viewComplaints.setOnClickListener(new View.OnClickListener() {
