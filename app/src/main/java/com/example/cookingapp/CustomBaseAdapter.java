@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class CustomBaseAdapter extends BaseAdapter{
+public class CustomBaseAdapter extends BaseAdapter {
 
     Context context;
     String complaints[];
