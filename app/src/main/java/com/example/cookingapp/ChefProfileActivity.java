@@ -41,7 +41,6 @@ public class ChefProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openAddMealToMenuActivity();
-
             }
         });
 
@@ -50,7 +49,6 @@ public class ChefProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openAddMealToOfferedMealsActivity();
-
             }
         });
 
@@ -59,7 +57,6 @@ public class ChefProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openRemoveMealFromOfferedMealsActivity();
-
             }
         });
 

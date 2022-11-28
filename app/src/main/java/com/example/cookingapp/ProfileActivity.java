@@ -43,8 +43,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
-
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
         userID = user.getUid();
@@ -67,14 +65,16 @@ public class ProfileActivity extends AppCompatActivity {
                     }
 
                     if(chef == true){
-                        //greetingTextView.setText("Welcome Chef");
-                        openChefProfileActivity();
+                        greetingTextView.setText("Welcome Chef");
+
+                        startActivity(new Intent(ProfileActivity.this, ChefProfileActivity.class));
 
                     }
                     if(administrator == true){
                         greetingTextView.setText("Welcome Administrator");
 
                         viewComplaints = (Button) findViewById(R.id.viewComplaints);
+                        viewComplaints.setVisibility(View.VISIBLE);
 
                         viewComplaints.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -93,11 +93,10 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(ProfileActivity.this,"Something wrong happened", Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
     private void openChefProfileActivity() {
-        Intent intent = new Intent(this, ChefProfileActivity.class);
+        Intent intent = new Intent(ProfileActivity.this, ChefProfileActivity.class);
         startActivity(intent);
     }
 }
