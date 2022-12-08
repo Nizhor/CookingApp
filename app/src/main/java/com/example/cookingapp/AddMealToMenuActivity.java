@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -16,14 +17,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddMealToMenuActivity extends AppCompatActivity {
     private EditText editTextMealName, editTextMealType, editTextCuisineType, editTextIngredients,
             editTextAllergens, editTextDescription, editTextPrice;
     private CheckBox chkYes, chkNo;
     private ProgressBar progressBar;
+    private Button btnAddMeal;
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
@@ -31,7 +37,7 @@ public class AddMealToMenuActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     String userID;
 
-
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,21 +57,22 @@ public class AddMealToMenuActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference();
+        myRef = mFirebaseDatabase.getReference("Users");
         FirebaseUser user = mAuth.getCurrentUser();
         userID = user.getUid();
 
-
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        btnAddMeal = (Button) findViewById(R.id.btnAddMeal);
+
+        btnAddMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addMeal();
+            }
+        });
     }
 
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btnAddMeal:
-                addMeal();
-                break;
-        }
-    }
 
     public void addMeal() {
         String mealName = editTextMealName.getText().toString().trim();
@@ -109,7 +116,19 @@ public class AddMealToMenuActivity extends AppCompatActivity {
             return;
         }
 
-        while (price == -1.0){
+
+        try {
+            price = Double.parseDouble(editTextPrice.getText().toString().trim());
+        } catch (NumberFormatException nfe) {
+            editTextPrice.setError("Price must be a valid number.");
+            editTextPrice.requestFocus();
+            return;
+        } catch (NullPointerException npe) {
+            editTextPrice.setError("Price is required!");
+            editTextPrice.requestFocus();
+            return;
+        }
+            /*
             try {
                 price = Double.parseDouble(editTextMealName.getText().toString().trim());
             } catch (NumberFormatException nfe) {
@@ -119,7 +138,9 @@ public class AddMealToMenuActivity extends AppCompatActivity {
                 editTextPrice.setError("Price is required!");
                 editTextPrice.requestFocus();
             }
-        }
+
+             */
+
 
         if(description.isEmpty()){
             editTextDescription.setError("Description is required!");
@@ -131,19 +152,36 @@ public class AddMealToMenuActivity extends AppCompatActivity {
             isOffered = true;
         }
 
-        /*
-        Add meal to menu of the chef using firebase. I don't know how to do this.
-
-        I think best way is to create new meal, and add that meal to the mealList in Menu.
-
-        If (Chef has not created a menu yet) { Create Menu and Add Meal to Menu } else { Add Meal to Menu }
-         */
+        progressBar.setVisibility(View.VISIBLE);
 
         Meal mealAdded = new Meal(mealName, mealType, cuisineType, ingredients, allergens,
                 price, description, isOffered);
-        Menu.addMealToMenu(mealAdded);
 
-        myRef.child("Users").child(userID).child("Menu").setValue(Chef.menu);
+        new MenuDatabaseReader().addMealToMenu(mealAdded, new MenuDatabaseReader.DataStatus() {
+            @Override
+            public void DataIsLoaded(List<Meal> meals, List<String> keys) {
+
+            }
+
+            @Override
+            public void DataIsInserted() {
+                Toast.makeText(AddMealToMenuActivity.this, "Meal has been added succesfully!", Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void DataIsUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+        });
+
+
+
     }
 
 

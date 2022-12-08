@@ -19,11 +19,19 @@
         />
 
     <Button
+        android:id="@+id/btnProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:layout_below="@id/txtWelcomeChef"
+        />
+
+    <Button
         android:id="@+id/btnMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Menu"
-        android:layout_below="@id/txtWelcomeChef"
+        android:layout_below="@id/btnProfile"
     />
 
     <Button
@@ -43,28 +51,14 @@
         />
 
     <Button
-        android:id="@+id/btnRemoveMealFromMenu"
+        android:id="@+id/btnSeePurchaseRequests"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Remove A Meal From The Menu"
+        android:text="Purchase Requests"
         android:layout_below="@id/btnAddMealToMenu"
         />
 
-    <Button
-        android:id="@+id/btnAddMealToOfferedMeals"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add A Meal To The Offered Meals List"
-        android:layout_below="@id/btnRemoveMealFromMenu"
-        />
 
-    <Button
-        android:id="@+id/btnRemoveMealFromOfferedMeals"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Remove A Meal From The Offered Meals List"
-        android:layout_below="@id/btnAddMealToOfferedMeals"
-        />
 
 
 </RelativeLayout>

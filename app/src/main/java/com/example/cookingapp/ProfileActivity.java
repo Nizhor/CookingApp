@@ -62,14 +62,14 @@ public class ProfileActivity extends AppCompatActivity {
 
                     if(client == true){
                         greetingTextView.setText("Welcome Client");
+                        startActivity(new Intent(ProfileActivity.this, ClientActivity.class));
                     }
 
                     if(chef == true){
                         greetingTextView.setText("Welcome Chef");
-
                         startActivity(new Intent(ProfileActivity.this, ChefProfileActivity.class));
-
                     }
+
                     if(administrator == true){
                         greetingTextView.setText("Welcome Administrator");
 
@@ -82,9 +82,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 startActivity(new Intent(ProfileActivity.this, ComplaintsList.class));
                             }
                         });
-
                     }
-
                 }
             }
 
@@ -93,10 +91,5 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(ProfileActivity.this,"Something wrong happened", Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private void openChefProfileActivity() {
-        Intent intent = new Intent(ProfileActivity.this, ChefProfileActivity.class);
-        startActivity(intent);
     }
 }

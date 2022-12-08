@@ -88,6 +88,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         boolean client = editClient.isChecked();
         boolean chef = editChef.isChecked();
         boolean administrator = false;
+        Menu menu = new Menu();
 
         String cardName = editCardName.getText().toString().trim();
         String description = editDescription.getText().toString().trim();
@@ -182,7 +183,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                 editDescription.setError("Description is required!");
                 editDescription.requestFocus();
                 return;
-
             }
 
         }
@@ -199,7 +199,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
                         if(task.isSuccessful()){
                             User user = new User(firstName, lastName, email, address, client,chef,administrator,
-                                    cardName, description, cardNumber, cardExpiration);
+                                    cardName, description, cardNumber, cardExpiration, menu);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

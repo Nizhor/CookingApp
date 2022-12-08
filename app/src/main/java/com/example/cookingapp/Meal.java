@@ -29,8 +29,8 @@ public class Meal {
             isOfferedString = "Currently Offered";
         }
 
-        return mealName + " " + mealType + " " + cuisineType + " " + ingredients +
-                " " + allergens + " " + price + " " + description + " " + isOfferedString;
+        return mealName + ", " + mealType + ", " + cuisineType + ", " + ingredients +
+                ", " + allergens + ", " + price + ", " + description + ", " + isOfferedString;
     }
 
     public void offerMealStatus(Boolean offer) {

@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -17,7 +18,7 @@ public class MealAdapter extends ArrayAdapter<Meal> {
     private Context mContext;
     private int mResource;
 
-    public MealAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Meal> objects) {
+    public MealAdapter(@NonNull Context context, int resource, @NonNull List<Meal> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource = resource;

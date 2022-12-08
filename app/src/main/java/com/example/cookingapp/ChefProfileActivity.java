@@ -11,9 +11,6 @@ public class ChefProfileActivity extends AppCompatActivity {
     private Button btnMenu;
     private Button btnMealsOffered;
     private Button btnAddMealToMenu;
-    private Button btnRemoveMealFromMenu;
-    private Button btnAddMealToOfferedMeals;
-    private Button btnRemoveMealFromOfferedMeals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,31 +40,6 @@ public class ChefProfileActivity extends AppCompatActivity {
                 openAddMealToMenuActivity();
             }
         });
-
-        btnAddMealToOfferedMeals = (Button) findViewById(R.id.btnAddMealToOfferedMeals);
-        btnRemoveMealFromMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openAddMealToOfferedMealsActivity();
-            }
-        });
-
-        btnRemoveMealFromMenu = (Button) findViewById(R.id.btnRemoveMealFromMenu);
-        btnRemoveMealFromMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openRemoveMealFromOfferedMealsActivity();
-            }
-        });
-
-        btnRemoveMealFromOfferedMeals = (Button) findViewById(R.id.btnRemoveMealFromOfferedMeals);
-        btnRemoveMealFromMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openRemoveMealFromOfferedMealsActivity();
-
-            }
-        });
     }
 
     public void openMenuActivity() {
@@ -82,21 +54,6 @@ public class ChefProfileActivity extends AppCompatActivity {
 
     public void openAddMealToMenuActivity() {
         Intent intent = new Intent(this, AddMealToMenuActivity.class);
-        startActivity(intent);
-    }
-
-    public void openAddMealToOfferedMealsActivity() {
-        Intent intent = new Intent(this, AddMealToOfferedMealsActivity.class);
-        startActivity(intent);
-    }
-
-    public void openRemoveMealFromMenuActivity() {
-        Intent intent = new Intent(this, RemoveMealFromMenuActivity.class);
-        startActivity(intent);
-    }
-
-    public void openRemoveMealFromOfferedMealsActivity() {
-        Intent intent = new Intent(this, RemoveMealFromOfferedMealsActivity.class);
         startActivity(intent);
     }
 

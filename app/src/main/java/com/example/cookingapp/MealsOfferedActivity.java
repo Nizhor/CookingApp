@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MealsOfferedActivity extends AppCompatActivity {
     private ListView mealsOfferedList;
@@ -17,8 +18,27 @@ public class MealsOfferedActivity extends AppCompatActivity {
 
         mealsOfferedList = findViewById(R.id.mealsOfferedList);
 
-        ArrayList<Meal> offeredMeals = (ArrayList) Menu.offeredMeals.clone();
+        new MenuDatabaseReader().readOfferedMealsList(new MenuDatabaseReader.DataStatus() {
+            @Override
+            public void DataIsLoaded(List<Meal> meals, List<String> keys) {
+                MealAdapter mealAdapter = new MealAdapter(MealsOfferedActivity.this, R.layout.menu_list_row, meals);
+                mealsOfferedList.setAdapter(mealAdapter);
+            }
 
-        MealAdapter mealAdapter = new MealAdapter(this, R.layout.menu_list_row, offeredMeals);
+            @Override
+            public void DataIsInserted() {
+
+            }
+
+            @Override
+            public void DataIsUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+        });
     }
 }

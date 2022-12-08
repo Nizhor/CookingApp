@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RemoveMealFromMenuActivity extends AppCompatActivity {
     String unwantedMeal;
@@ -26,6 +27,7 @@ public class RemoveMealFromMenuActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference myRef;
     String userID;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class RemoveMealFromMenuActivity extends AppCompatActivity {
 
         submit = (Button) findViewById(R.id.btnSubmit);
 
+        key = getIntent().getStringExtra("key");
+
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference();
@@ -44,29 +48,32 @@ public class RemoveMealFromMenuActivity extends AppCompatActivity {
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                unwantedMeal = mealInput.getText().toString().trim();
+            public void onClick(View v) {
+                new MenuDatabaseReader().deleteMealFromMenu(key, new MenuDatabaseReader.DataStatus() {
+                    @Override
+                    public void DataIsLoaded(List<Meal> meals, List<String> keys) {
 
-
-                Menu menu = Chef.menu;
-                ArrayList<Meal> allMeals = (ArrayList) menu.mealList.clone();
-
-                for (int i = 0; i < (allMeals.size() - 1);i++) {
-                    Meal meal = allMeals.get(i);
-                    if (meal.mealName.toLowerCase() == unwantedMeal.toLowerCase()) {
-                        if (meal.isOffered) {
-                            mealInput.setError("Cannot delete a meal that is currently offered!");
-                            mealInput.requestFocus();
-                        } else {
-                            menu.removeMealFromMenu(meal);
-                            showToast(unwantedMeal + " has been removed from the menu.");
-                        }
                     }
-                }
 
-                myRef.child("Users").child(userID).child("Menu").setValue(Chef.menu);
+                    @Override
+                    public void DataIsInserted() {
+
+                    }
+
+                    @Override
+                    public void DataIsUpdated() {
+
+                    }
+
+                    @Override
+                    public void DataIsDeleted() {
+                        Toast.makeText(RemoveMealFromMenuActivity.this, "Meal has been removed!", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
-        });;
+        });
+
+
     }
 
     public void showToast(String toast) {
